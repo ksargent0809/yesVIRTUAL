@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Salary Calculator</title>
+  <style>
+    /* Add some basic styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 10px;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+    }
+    
+    input[type="number"] {
+      width: 200px;
+      padding: 5px;
+    }
+    
+    h2 {
+      margin-top: 20px;
+      font-size: 22px;
+      text-align: left;
+    }
+    
+    .spacing {
+      margin-bottom: 20px;
+    }
+    
+    .total {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Salary Calculator</h1>
+
+  <div class="form-group">
+    <label for="gross-salary">Gross Monthly Salary:</label>
+    <input type="number" id="gross-salary" placeholder="Enter your gross monthly salary">
+  </div>
+
+  <div class="form-group">
+    <label for="hourly-rate">Hourly Rate (40-hour work week):</label>
+    <div class="output-field" id="hourly-rate">$0.00</div>
+  </div>
+
+  <h2 style="text-align: left; font-size: 22px;" class="spacing">Typical Monthly Employer Costs (Independent Contractor)</h2>
+
+  <div class="form-group">
+    <label for="typical-13th-month-accrual">13th Month Accrual:</label>
+    <div class="output-field" id="typical-13th-month-accrual">$0.00</div>
+  </div>
+
+  <div class="form-group">
+    <label for="typical-holiday-pay-accrual">Holiday Pay Accrual:</label>
+    <div class="output-field" id="typical-holiday-pay-accrual">$19.83</div>
+  </div>
+
+  <div class="form-group">
+    <label for="typical-night-shift-differential">Night Shift Differential:</label>
+    <div class="output-field" id="typical-night-shift-differential">$0.00</div>
+  </div>
+
+  <div class="form-group">
+    <label for="internet-allowance">Internet Allowance:</label>
+    <div class="output-field" id="internet-allowance">$26.85</div>
+  </div>
+  
+  <label class="total">Total Monthly Employer Costs:</label>
+  <div class="form-group">
+    <div class="output-field" id="typical-total">$0.00</div>
+  </div>
+  
+  <h2 style="text-align: left; font-size: 22px;" class="spacing">YesV EOR Employer Costs</h2>
+  
+  <div class="form-group">
+    <label for="yesv-night-shift-differential">Night Shift Differential:</label>
+    <div class="output-field" id="yesv-night-shift-differential">$0.00</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="yesv-13th-month-accrual">13th Month Accrual:</label>
+    <div class="output-field" id="yesv-13th-month-accrual">$0.00</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="yesv-philhealth">Philhealth:</label>
+    <div class="output-field" id="yesv-philhealth">$0.00</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="yesv-social-security">Social Security:</label>
+    <div class="output-field" id="yesv-social-security">$0.00</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="yesv-hdmf">HDMF:</label>
+    <div class="output-field" id="yesv-hdmf">$0.00</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="yesv-holiday-pay-accrual">Holiday Pay Accrual:</label>
+    <div class="output-field" id="yesv-holiday-pay-accrual">$19.83</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="yesv-eor-service-fee">EOR Service Fee:</label>
+    <div class="output-field" id="yesv-eor-service-fee">$194.24</div>
+  </div>
+  
+  <label class="total">Total Monthly Employer Costs:</label>
+  <div class="form-group">
+    <div class="output-field" id="yesv-total">$0.00</div>
+  </div>
+  
+  <h2 style="text-align: left; font-size: 22px;" class="spacing">Additional Monthly Employer Costs</h2>
+  
+  <div class="form-group">
+    <label for="additional-employer-costs">Additional Employer Costs:</label>
+    <div class="output-field" id="additional-employer-costs">$0.00</div>
+  </div>
+
+  <h2 style="text-align: left; font-size: 22px;" class="spacing">Employee Contribution & Tax</h2>
+
+  <div class="form-group">
+    <label for="estimated-contribution">Estimated Contribution:</label>
+    <div class="output-field" id="estimated-contribution">$0.00</div>
+  </div>
+
+  <div class="form-group">
+    <label for="tax">Tax:</label>
+    <div class="output-field" id="tax">$0.00</div>
+  </div>
+
+  <div class="form-group">
+   <h2 style="text-align: left; font-size: 22px;" class="spacing">Net Employee Pay</h2>
+    <div class="output-field" id="net-employee-pay">$0.00</div>
+  </div>
+
+  <script>
+    // Get input elements
+    const grossSalaryInput = document.getElementById('gross-salary');
+    const hourlyRateOutput = document.getElementById('hourly-rate');
+    const typical13thMonthAccrualOutput = document.getElementById('typical-13th-month-accrual');
+    const typicalNightShiftDifferentialOutput = document.getElementById('typical-night-shift-differential');
+    const yesv13thMonthAccrualOutput = document.getElementById('yesv-13th-month-accrual');
+    const yesvNightShiftDifferentialOutput = document.getElementById('yesv-night-shift-differential');
+    const yesvPhilhealthOutput = document.getElementById('yesv-philhealth');
+    const yesvSocialSecurityOutput = document.getElementById('yesv-social-security');
+    const yesvHdmfOutput = document.getElementById('yesv-hdmf');
+    const yesvHolidayPayAccrualOutput = document.getElementById('yesv-holiday-pay-accrual');
+    const yesvEorServiceFeeOutput = document.getElementById('yesv-eor-service-fee');
+    const internetAllowanceOutput = document.getElementById('internet-allowance');
+    const typicalTotalOutput = document.getElementById('typical-total');
+    const yesvTotalOutput = document.getElementById('yesv-total');
+    const additionalEmployerCostsOutput = document.getElementById('additional-employer-costs');
+    const estimatedContributionOutput = document.getElementById('estimated-contribution');
+    const taxOutput = document.getElementById('tax');
+    const netEmployeePayOutput = document.getElementById('net-employee-pay');
+
+    // Add event listener to calculate fields when input changes
+    grossSalaryInput.addEventListener('input', calculateSalary);
+
+    function calculateSalary() {
+      const grossSalary = parseFloat(grossSalaryInput.value);
+
+      // Calculate hourly rate (gross salary * 12 / 2080, assuming 40-hour work week)
+      const hourlyRate = (grossSalary * 12) / 2080;
+
+      // Calculate typical 13th month accrual (gross salary / 12)
+      const typical13thMonthAccrual = grossSalary / 12;
+
+      // Calculate typical Night Shift Differential (hourly rate * 0.1 * 173)
+      const typicalNightShiftDifferential = hourlyRate * 0.1 * 173;
+
+      // Calculate yesV EOR 13th month accrual (gross salary / 12)
+      const yesv13thMonthAccrual = grossSalary / 12;
+
+      // Calculate yesV EOR Night Shift Differential (hourly rate * 0.1 * 173)
+      const yesvNightShiftDifferential = hourlyRate * 0.1 * 173;
+
+      // Calculate yesV EOR Philhealth (gross salary * 0.02)
+      const yesvPhilhealth = grossSalary * 0.02;
+
+      // Calculate yesV EOR Social Security (flat rate)
+      const yesvSocialSecurity = 34.54;
+
+      // Calculate yesV EOR HDMF (flat rate)
+      const yesvHdmf = 1.79;
+
+      // Calculate yesV EOR Holiday Pay Accrual (flat rate)
+      const yesvHolidayPayAccrual = 19.83;
+
+      // Calculate total for Typical Monthly Employer Costs
+      const typicalTotal = grossSalary + 19.83 + typical13thMonthAccrual + typicalNightShiftDifferential + 26.85;
+      typicalTotalOutput.textContent = '$' + typicalTotal.toFixed(2);
+      
+      // Calculate total for YesV EOR Employer Costs
+      const yesvTotal = grossSalary + yesv13thMonthAccrual + yesvNightShiftDifferential + yesvPhilhealth + yesvSocialSecurity + yesvHdmf + yesvHolidayPayAccrual + 194.24;
+      yesvTotalOutput.textContent = '$' + yesvTotal.toFixed(2);
+      
+      // Calculate Additional Monthly Employer Costs
+      const additionalEmployerCosts = yesvTotal - typicalTotal;
+      additionalEmployerCostsOutput.textContent = '$' + additionalEmployerCosts.toFixed(2);
+
+      // Calculate Estimated Contribution (example value)
+      const estimatedContribution = 25.06;
+      estimatedContributionOutput.textContent = '$' + estimatedContribution.toFixed(2);
+
+      // Calculate Tax (example value)
+      const tax = 0;
+      taxOutput.textContent = '$' + tax.toFixed(2);
+
+      // Calculate Net Employee Pay
+      const netEmployeePay = grossSalary + yesvNightShiftDifferential - estimatedContribution - tax;
+      netEmployeePayOutput.textContent = '$' + netEmployeePay.toFixed(2);
+
+      // Update the output fields with the calculated values
+      hourlyRateOutput.textContent = '$' + hourlyRate.toFixed(2);
+      typical13thMonthAccrualOutput.textContent = '$' + typical13thMonthAccrual.toFixed(2);
+      typicalNightShiftDifferentialOutput.textContent = '$' + typicalNightShiftDifferential.toFixed(2);
+      yesv13thMonthAccrualOutput.textContent = '$' + yesv13thMonthAccrual.toFixed(2);
+      yesvNightShiftDifferentialOutput.textContent = '$' + yesvNightShiftDifferential.toFixed(2);
+      yesvPhilhealthOutput.textContent = '$' + yesvPhilhealth.toFixed(2);
+      yesvSocialSecurityOutput.textContent = '$' + yesvSocialSecurity.toFixed(2);
+      yesvHdmfOutput.textContent = '$' + yesvHdmf.toFixed(2);
+      yesvHolidayPayAccrualOutput.textContent = '$' + yesvHolidayPayAccrual.toFixed(2);
+      yesvEorServiceFeeOutput.textContent = '$194.24';
+      internetAllowanceOutput.textContent = '$26.85';
+    }
+  </script>
+</body>
+</html>
